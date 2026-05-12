@@ -3,437 +3,933 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🥷 Ninja Kitchen UA — Weekly Report 2026-05-11</title>
+<title>Extreme Pride Portfolio — Weekly Report | 05–11 травня 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  :root { --bg:#0f1117;--bg2:#161b27;--bg3:#1e2535;--accent:#e8352a;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--text:#e2e8f0;--muted:#94a3b8;--border:#2d3748; }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;line-height:1.6;}
-  nav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;align-items:center;gap:20px;overflow-x:auto;}
-  nav .logo{color:var(--accent);font-weight:800;font-size:18px;white-space:nowrap;}
-  nav a{color:var(--muted);text-decoration:none;white-space:nowrap;font-size:12px;transition:color .2s;}
-  nav a:hover{color:var(--text);}
-  .container{max-width:1400px;margin:0 auto;padding:24px;}
-  .critical-box{background:rgba(232,53,42,0.12);border:2px solid var(--accent);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
-  .critical-box h2{color:var(--accent);font-size:16px;margin-bottom:12px;}
-  .alert-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;padding:8px 12px;background:rgba(232,53,42,0.08);border-radius:8px;}
-  .alert-item .icon{font-size:18px;flex-shrink:0;}
-  .alert-item .alabel{font-weight:600;color:var(--accent);font-size:13px;}
-  .alert-item .desc{font-size:13px;}
-  .section-header{margin:32px 0 16px;display:flex;align-items:center;gap:10px;}
-  .section-header h2{font-size:18px;font-weight:700;}
-  .section-header .line{flex:1;height:1px;background:var(--border);}
-  .tldr{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:24px;}
-  .tldr h3{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px;}
-  .tldr-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px;font-size:14px;}
-  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;}
-  .kpi-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;}
-  .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);}
-  .kpi-card.green::before{background:var(--green);}
-  .kpi-card.yellow::before{background:var(--yellow);}
-  .kpi-card .klabel{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;}
-  .kpi-card .kvalue{font-size:28px;font-weight:800;margin-bottom:8px;}
-  .kpi-card .badges{display:flex;flex-wrap:wrap;gap:6px;}
-  .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;}
-  .badge.up{background:rgba(34,197,94,0.15);color:var(--green);}
-  .badge.dn{background:rgba(239,68,68,0.15);color:var(--red);}
-  .badge.nu{background:rgba(148,163,184,0.15);color:var(--muted);}
-  .badge.wn{background:rgba(245,158,11,0.15);color:var(--yellow);}
-  .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
-  table{width:100%;border-collapse:collapse;}
-  th{background:var(--bg3);padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);border-bottom:1px solid var(--border);}
-  td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top;}
-  tr:last-child td{border-bottom:none;}
-  tr:hover td{background:rgba(255,255,255,0.02);}
-  .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-right:4px;}
-  .tag-r{background:rgba(232,53,42,0.15);color:var(--accent);}
-  .tag-y{background:rgba(245,158,11,0.15);color:var(--yellow);}
-  .tag-g{background:rgba(34,197,94,0.15);color:var(--green);}
-  .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
-  .chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;}
-  .chart-card h3{font-size:12px;font-weight:600;margin-bottom:16px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;}
-  .chart-container{position:relative;height:200px;}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
-  .insight-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;}
-  .insight-card .inum{font-size:11px;color:var(--muted);margin-bottom:6px;}
-  .insight-card .ititle{font-size:14px;font-weight:700;margin-bottom:8px;}
-  .insight-card .ibody{font-size:13px;color:var(--muted);line-height:1.5;}
-  .insight-card .iaction{margin-top:10px;padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:12px;color:var(--accent);}
-  .money{color:var(--yellow);font-weight:700;}
-  .p1{color:var(--accent);font-weight:700;}
-  .p2{color:var(--yellow);font-weight:700;}
-  .p3{color:var(--green);font-weight:700;}
-  .report-footer{text-align:center;padding:32px 0 16px;color:var(--muted);font-size:12px;}
-  .report-footer a{color:var(--accent);text-decoration:none;}
-  .info-box{border-radius:12px;padding:16px 20px;margin-bottom:24px;}
-  .info-box.warn{background:rgba(245,158,11,0.08);border:1px solid var(--yellow);}
-  .info-box.danger{background:rgba(232,53,42,0.08);border:1px solid var(--accent);}
-  .insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-bottom:24px;}
-  @media(max-width:768px){.chart-grid,.two-col{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:1fr 1fr;}}
+  :root {
+    --bg: #0f1117;
+    --bg2: #1a1d27;
+    --bg3: #22263a;
+    --accent: #e8352a;
+    --accent2: #ff6b35;
+    --green: #22c55e;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --border: #2d3748;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; font-size:14px; line-height:1.6; }
+
+  /* HEADER */
+  .header { background:linear-gradient(135deg,#1a0a09 0%,#2d0f0d 50%,#1a1d27 100%); padding:28px 32px; border-bottom:2px solid var(--accent); display:flex; align-items:center; justify-content:space-between; }
+  .header-left { display:flex; align-items:center; gap:16px; }
+  .logo { width:48px; height:48px; background:var(--accent); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:900; color:#fff; }
+  .header-title h1 { font-size:22px; font-weight:700; }
+  .header-title p { color:var(--text2); font-size:13px; }
+  .header-meta { text-align:right; color:var(--text2); font-size:12px; }
+  .header-meta strong { color:var(--text); display:block; font-size:15px; }
+
+  /* LAYOUT */
+  .container { max-width:1400px; margin:0 auto; padding:24px 32px; }
+  .section { margin-bottom:32px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+
+  /* ALERT */
+  .critical-alert { background:linear-gradient(135deg,#2d0f0d,#1a0a09); border:2px solid var(--red); border-radius:12px; padding:20px 24px; margin-bottom:24px; }
+  .critical-alert h2 { color:var(--red); font-size:18px; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .alert-item { background:rgba(239,68,68,0.1); border-left:3px solid var(--red); padding:10px 14px; border-radius:4px; margin-bottom:8px; font-size:13px; }
+  .alert-item:last-child { margin-bottom:0; }
+  .alert-item strong { color:var(--red); }
+
+  /* TLDR */
+  .tldr { background:var(--bg2); border-radius:12px; padding:20px 24px; margin-bottom:24px; border:1px solid var(--border); }
+  .tldr h2 { color:var(--accent); margin-bottom:12px; font-size:16px; }
+  .tldr-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .tldr-item { text-align:center; }
+  .tldr-item .label { color:var(--text2); font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
+  .tldr-item .value { font-size:20px; font-weight:700; margin:4px 0; }
+  .tldr-item .sub { font-size:12px; color:var(--text2); }
+
+  /* ACTION ITEMS */
+  .action-table { width:100%; border-collapse:collapse; }
+  .action-table th { background:var(--bg3); color:var(--text2); font-size:11px; text-transform:uppercase; letter-spacing:0.5px; padding:10px 12px; text-align:left; border-bottom:2px solid var(--border); }
+  .action-table td { padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .action-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .priority-1 { border-left:4px solid var(--red); }
+  .priority-2 { border-left:4px solid var(--yellow); }
+  .priority-3 { border-left:4px solid var(--green); }
+  .impact-badge { background:rgba(34,197,94,0.15); color:var(--green); border:1px solid rgba(34,197,94,0.3); padding:2px 8px; border-radius:4px; font-size:12px; font-weight:600; white-space:nowrap; }
+
+  /* PORTFOLIO TABLE */
+  .portfolio-table { width:100%; border-collapse:collapse; }
+  .portfolio-table th { background:var(--bg3); color:var(--text2); font-size:11px; text-transform:uppercase; letter-spacing:0.5px; padding:10px 14px; text-align:left; border-bottom:2px solid var(--border); }
+  .portfolio-table td { padding:12px 14px; border-bottom:1px solid var(--border); }
+  .portfolio-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .portfolio-table .total-row td { background:rgba(232,53,42,0.1); font-weight:700; border-top:2px solid var(--accent); }
+  .wow-pos { color:var(--green); font-weight:600; }
+  .wow-neg { color:var(--red); font-weight:600; }
+  .wow-neu { color:var(--text2); }
+  .status-ok { color:var(--green); font-size:16px; }
+  .status-warn { color:var(--yellow); font-size:16px; }
+  .status-crit { color:var(--red); font-size:16px; }
+  .site-name { font-weight:600; color:var(--text); }
+  .site-url { color:var(--text2); font-size:11px; }
+
+  /* KPI CARDS */
+  .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+  .kpi-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+  .kpi-card .kpi-label { color:var(--text2); font-size:11px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }
+  .kpi-card .kpi-value { font-size:26px; font-weight:700; line-height:1; }
+  .kpi-card .kpi-wow { font-size:12px; margin-top:6px; }
+  .kpi-card .kpi-sub { font-size:12px; color:var(--text2); margin-top:4px; }
+
+  /* CHARTS */
+  .chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px; }
+  .chart-box { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  .chart-box h3 { color:var(--text2); font-size:13px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px; }
+  .chart-box canvas { max-height:280px; }
+  .chart-full { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:24px; }
+  .chart-full h3 { color:var(--text2); font-size:13px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px; }
+
+  /* DATA TABLES */
+  .data-table { width:100%; border-collapse:collapse; }
+  .data-table th { background:var(--bg3); color:var(--text2); font-size:11px; text-transform:uppercase; letter-spacing:0.5px; padding:8px 12px; text-align:left; border-bottom:2px solid var(--border); }
+  .data-table td { padding:8px 12px; border-bottom:1px solid var(--border); font-size:13px; }
+  .data-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .data-table .highlight { color:var(--accent2); font-weight:600; }
+
+  /* FUNNEL */
+  .funnel-row td:first-child { font-weight:600; }
+  .bar-mini { height:6px; background:var(--accent); border-radius:3px; display:inline-block; }
+
+  /* LOST REVENUE */
+  .lost-rev { color:var(--red); font-weight:600; }
+
+  /* TECHNICAL */
+  .tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .tech-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:16px; }
+  .tech-card .tc-label { color:var(--text2); font-size:11px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }
+  .tech-card .tc-value { font-size:20px; font-weight:700; }
+  .tech-card .tc-status { font-size:12px; margin-top:4px; }
+  .badge-warn { background:rgba(245,158,11,0.2); color:var(--yellow); border:1px solid rgba(245,158,11,0.4); padding:2px 8px; border-radius:4px; font-size:11px; }
+  .badge-ok { background:rgba(34,197,94,0.15); color:var(--green); border:1px solid rgba(34,197,94,0.3); padding:2px 8px; border-radius:4px; font-size:11px; }
+  .badge-crit { background:rgba(239,68,68,0.15); color:var(--red); border:1px solid rgba(239,68,68,0.3); padding:2px 8px; border-radius:4px; font-size:11px; }
+
+  /* INSIGHTS */
+  .insights-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .insight-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:16px 18px; }
+  .insight-card .ic-num { color:var(--accent); font-size:20px; font-weight:700; margin-bottom:4px; }
+  .insight-card .ic-title { font-weight:600; margin-bottom:6px; }
+  .insight-card .ic-body { color:var(--text2); font-size:13px; }
+  .insight-card .ic-action { background:rgba(232,53,42,0.1); border-left:2px solid var(--accent); padding:6px 10px; margin-top:10px; font-size:12px; border-radius:2px; }
+
+  /* FOOTER */
+  .footer { background:var(--bg2); border-top:1px solid var(--border); padding:20px 32px; text-align:center; color:var(--text2); font-size:12px; margin-top:40px; }
+
+  /* UNASSIGNED ALERT */
+  .unassigned-alert { background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); border-radius:8px; padding:12px 16px; margin-top:12px; font-size:13px; }
+  .unassigned-alert strong { color:var(--yellow); }
+
+  @media (max-width:1024px) {
+    .tldr-grid, .kpi-grid { grid-template-columns:repeat(2,1fr); }
+    .chart-grid { grid-template-columns:1fr; }
+    .insights-grid { grid-template-columns:1fr; }
+    .tech-grid { grid-template-columns:repeat(2,1fr); }
+  }
 </style>
 </head>
 <body>
-<nav>
-  <span class="logo">🥷 NK</span>
-  <a href="#alerts">🚨 Алерти</a>
-  <a href="#tldr">TL;DR</a>
-  <a href="#actions">🎯 Actions</a>
-  <a href="#kpi">📊 KPI</a>
-  <a href="#revenue">💰 Продажі</a>
-  <a href="#channels">🚦 Канали</a>
-  <a href="#funnel">🔽 Воронка</a>
-  <a href="#products">📦 Продукти</a>
-  <a href="#insights">💡 Інсайти</a>
-  <a href="#tech">⚙️ Технічні</a>
-</nav>
-<div class="container">
 
-<!-- ALERTS -->
-<div id="alerts" style="padding-top:8px"></div>
-<div class="critical-box">
-  <h2>🚨 CRITICAL ALERTS — Тиждень 19 | 04–10 травня 2026</h2>
-  <div class="alert-item">
-    <span class="icon">🚨</span>
-    <div><div class="alabel">ATTRIBUTION CRISIS: 41.2% доходу без attribution</div>
-    <div class="desc">Cross-network <strong>₴121,121</strong> + Unassigned <strong>₴143,244</strong> = <strong style="color:var(--accent)">₴264,365</strong> — невідомо звідки 41% продажів. Benchmark: &lt;15%. Причина: некоректні UTM або GA4 channel grouping.</div></div>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">N</div>
+    <div class="header-title">
+      <h1>Extreme Pride Portfolio Report</h1>
+      <p>Weekly eCommerce Dashboard · AI Team · Автоматичний звіт</p>
+    </div>
   </div>
-  <div class="alert-item">
-    <span class="icon">🚨</span>
-    <div><div class="alabel">ORGANIC SEARCH ОБВАЛ: -89.1% WoW по доходу</div>
-    <div class="desc">Organic Search: <strong>₴17,098</strong> vs ₴157,486 тиждень тому. Транзакцій: 2 vs 14. Трафік впав лише -6.3%, але конверсія з органіки обвалилась. Потрібний негайний GSC аудит.</div></div>
-  </div>
-  <div class="alert-item">
-    <span class="icon">⚠️</span>
-    <div><div class="alabel">AOV ПАДІННЯ: -25.5% WoW (₴9,662 → ₴7,203)</div>
-    <div class="desc">Зміна &gt;10% — тригер аналізу. Причина: зсув мікс до mobile/mid-range SKU. Desktop conv знизилась з 38% до 23% доходу. Revenue загалом +12.5% — не критично, але слідкувати.</div></div>
-  </div>
-  <div class="alert-item">
-    <span class="icon">⚠️</span>
-    <div><div class="alabel">PAYMENT FAILURES: +127% WoW (25 vs 11)</div>
-    <div class="desc">pay_order_not_ok: 25 цього тижня vs 11 минулого. Поріг критичного алерту 30 не досягнуто, але тренд тривожний. Потенційна втрата ~<strong>₴100,842</strong> при продовженні тренду.</div></div>
+  <div class="header-meta">
+    <strong>Тиждень 19 · 5–11 травня 2026</strong>
+    Сформовано: 12 травня 2026<br>
+    Звітний період: 05.05–11.05 vs 28.04–04.05
   </div>
 </div>
 
-<!-- TLDR -->
-<div id="tldr" class="tldr">
-  <h3>📋 TL;DR — Тиждень 19 (04–10 травня 2026)</h3>
-  <div class="tldr-row"><span>💰</span><span>Revenue <strong>₴641,070 (+12.5% WoW)</strong>, транзакцій 89 (+50.8%) — зростання є, але воно "брудне": 41% revenue без attribution, органіка обвалилась на 89%.</span></div>
-  <div class="tldr-row"><span>⚠️</span><span>Ризик: Attribution crisis + Organic Search collapse можуть означати що реальний органічний ріст від'ємний, а платний трафік/email маскують реальну картину. Потрібен термінвий аудит в понеділок.</span></div>
-  <div class="tldr-row"><span>🚀</span><span>Можливість: Email канал — чемпіон тижня (AOV ₴11,304, conv 4.17%, ₴101,741 rev). Фризери SLUSHI — зірка продажів (conv 3.3%). Масштабувати обидва напрями.</span></div>
+<div class="container">
+
+<!-- 🚨 CRITICAL ALERTS -->
+<div class="critical-alert">
+  <h2>🚨 Critical Alerts</h2>
+  <div class="alert-item">
+    <strong>🔴 gopro-ukraine.com: Revenue WoW −83.6%</strong> — ₴40,436 цього тижня проти ₴246,084 минулого. Транзакції: 13 vs 11 (зросли), але середній чек впав з ₴22,371 до ₴3,110 (−86%). Ймовірно: кілька великих замовлень минулого тижня, або проблема з атрибуцією/трекінгом доходу. Потребує негайної перевірки.
+  </div>
+  <div class="alert-item">
+    <strong>⚠️ Attribution Alert — ninja-kitchen.com.ua: "Unassigned" генерує ₴127,746 (22% revenue)</strong> — Unassigned + Cross-network = (478+3860)/(10913) = 40.7% сесій, але Unassigned AOV = ₴5,554 — підозріло висока, потребує налаштування UTM/GA4.
+  </div>
+  <div class="alert-item">
+    <strong>⚠️ light-ua.com.ua: Revenue = ₴0 вже 2+ тижні</strong> — 273 сесії, 0 транзакцій. Сайт отримує трафік але не конвертує. Можливе відключення ecommerce tracking або відсутність товарів у продажу.
+  </div>
+</div>
+
+<!-- TL;DR -->
+<div class="tldr">
+  <h2>📋 TL;DR — Тиждень 19</h2>
+  <div class="tldr-grid">
+    <div class="tldr-item">
+      <div class="label">💰 Total Revenue</div>
+      <div class="value" style="color:var(--accent)">₴832,267</div>
+      <div class="sub wow-neg">WoW −17.0% (₴995,017 мин. тиж.)</div>
+    </div>
+    <div class="tldr-item">
+      <div class="label">🏆 Лідер тижня</div>
+      <div class="value" style="color:var(--green)">ninja-kitchen</div>
+      <div class="sub">₴582,961 · 70% портфоліо</div>
+    </div>
+    <div class="tldr-item">
+      <div class="label">⚠️ Ризик</div>
+      <div class="value" style="color:var(--red)">GoPro −83.6%</div>
+      <div class="sub">₴205,648 втраченого Revenue WoW</div>
+    </div>
+    <div class="tldr-item">
+      <div class="label">🚀 Можливість</div>
+      <div class="value" style="color:var(--green)">Xgimi +69.9%</div>
+      <div class="sub">₴83,294 · конверсія 0.37%</div>
+    </div>
+  </div>
 </div>
 
 <!-- ACTION ITEMS -->
-<div id="actions"><div class="section-header"><h2>🎯 Action Items</h2><div class="line"></div></div></div>
-<div class="table-wrap">
-  <table>
-    <thead><tr><th>#</th><th>Що зробити</th><th>Чому (impact ₴)</th><th>Хто</th><th>Deadline</th></tr></thead>
+<div class="section">
+  <div class="section-title">🎯 Action Items — Тиждень 19</div>
+  <table class="action-table">
+    <thead>
+      <tr>
+        <th style="width:30px">#</th>
+        <th>Що зробити</th>
+        <th>Сайт</th>
+        <th>Impact ₴</th>
+        <th>Хто</th>
+        <th>Deadline</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr>
-        <td><span class="p1">1</span></td>
-        <td><strong>Аудит Attribution / UTM</strong><br><small>Перевірити GA4 channel grouping, UTM на всіх активних кампаніях, передачу параметрів через редиректи. З'ясувати джерело Unassigned ₴143k.</small></td>
-        <td><span class="tag tag-r">₴264,365/тиж</span> невідомого трафіку. Без attribution — ROAS оптимізація неможлива.</td>
-        <td>Head of Ecomm + Analytics</td>
-        <td><strong>Ср 13/05</strong></td>
+      <tr class="priority-1">
+        <td><strong>1</strong></td>
+        <td>Перевірити трекінг доходу на gopro-ukraine.com: порівняти транзакції GA4 vs 1С за 28.04–11.05. Якщо розходження — відновити ecommerce tracking</td>
+        <td>gopro-ukraine.com</td>
+        <td><span class="impact-badge">~₴205K WoW</span></td>
+        <td>Ecomm + Dev</td>
+        <td>12.05 (сьогодні)</td>
       </tr>
-      <tr>
-        <td><span class="p1">2</span></td>
-        <td><strong>Organic Search GSC аудит</strong><br><small>Перевірити Google Search Console: impressions, CTR, позиції vs тиж тому. Перевірити індексацію, Core Web Vitals, технічні помилки.</small></td>
-        <td><span class="tag tag-r">₴140,388</span> втрачений органічний дохід WoW. Відновлення дасть +22% до загального revenue.</td>
-        <td>SEO / Розробник</td>
-        <td><strong>Вт 12/05</strong></td>
+      <tr class="priority-1">
+        <td><strong>2</strong></td>
+        <td>Виправити UTM-розмітку для "Unassigned" трафіку на ninja-kitchen.com.ua. ₴127,746 (22% revenue) без атрибуції — неприпустимо для оптимізації рекламних бюджетів</td>
+        <td>ninja-kitchen.com.ua</td>
+        <td><span class="impact-badge">~₴50K/міс</span></td>
+        <td>Marketing + Dev</td>
+        <td>14.05</td>
       </tr>
-      <tr>
-        <td><span class="p1">3</span></td>
-        <td><strong>Діагностика payment failures</strong><br><small>25 failed payments vs 11 минулого тижня. Перевірити логи Кашалот: яка платіжна система, тип картки, помилка. Чи є паттерн?</small></td>
-        <td><span class="tag tag-y">~₴100,842</span> потенційних втрат при продовженні тренду. Поріг критичного алерту 30/тиж — ми близько.</td>
-        <td>Розробник + Кашалот</td>
-        <td><strong>Вт 12/05</strong></td>
+      <tr class="priority-2">
+        <td><strong>3</strong></td>
+        <td>Ninja-kitchen: Organic Search revenue впав з ₴120,488 до ₴11,097 WoW (−90.8%) при стабільних сесіях. Перевірити чи не змінилась розмітка товарів або checkout flow для органічного трафіку</td>
+        <td>ninja-kitchen.com.ua</td>
+        <td><span class="impact-badge">~₴109K WoW</span></td>
+        <td>SEO + Dev</td>
+        <td>13.05</td>
       </tr>
-      <tr>
-        <td><span class="p2">4</span></td>
-        <td><strong>Email кампанія — push кавомашин Ninja Luxe</strong><br><small>ES501+ES601+ES701+CFN802: 856 переглядів, 0 продажів. Сегмент "переглядали кавомашини" — targeted email. Email canal AOV ₴11,304, conv 4.17%.</small></td>
-        <td><span class="tag tag-y">~₴104,704</span> потенційний дохід (856 views × email conv 4% × ₴25,000 avg price кавомашин × 50% coverage).</td>
-        <td>Marketing / Email</td>
-        <td><strong>Чт 14/05</strong></td>
+      <tr class="priority-2">
+        <td><strong>4</strong></td>
+        <td>Ninja SLUSHI FS301EU: 437 переглядів, лише 1 покупка (conv 0.23%). Перевірити ціну, наявність, фото. Потенціал lost revenue ~₴43K при нормальній конверсії 2%</td>
+        <td>ninja-kitchen.com.ua</td>
+        <td><span class="impact-badge">~₴43K/тиж</span></td>
+        <td>Product Content</td>
+        <td>13.05</td>
       </tr>
-      <tr>
-        <td><span class="p3">5</span></td>
-        <td><strong>Масштабувати Paid Social на SLUSHI фризери</strong><br><small>SLUSHI FS301EUMG: conv з views 3.3% (vs сайт 0.80%). Paid Social: +87% rev при -6.7% сесій — якість трафіку зросла. Збільшити бюджет SLUSHI-specific кампаній.</small></td>
-        <td><span class="tag tag-g">₴70,492</span> Paid Social revenue цей тиж. SLUSHI avg ₴13,999. Масштабування ×1.5 дасть +₴35,000/тиж.</td>
-        <td>Performance Marketing</td>
-        <td><strong>Пт 15/05</strong></td>
+      <tr class="priority-3">
+        <td><strong>5</strong></td>
+        <td>light-ua.com.ua: діагностика 0-revenue при 273 сесіях. Перевірити статус ecommerce tracking, каталог товарів, можливість оформлення замовлення</td>
+        <td>light-ua.com.ua</td>
+        <td><span class="impact-badge">невідомо</span></td>
+        <td>Ecomm</td>
+        <td>14.05</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- KPI -->
-<div id="kpi"><div class="section-header"><h2>📊 Ключові KPI</h2><div class="line"></div></div></div>
-<div class="kpi-grid">
-  <div class="kpi-card">
-    <div class="klabel">💰 Revenue</div>
-    <div class="kvalue">₴641K</div>
-    <div class="badges"><span class="badge up">▲ +12.5% WoW</span><span class="badge nu">~₴606K 4w est.</span><span class="badge nu">YoY: N/A</span></div>
-  </div>
-  <div class="kpi-card green">
-    <div class="klabel">🛒 Транзакції</div>
-    <div class="kvalue">89</div>
-    <div class="badges"><span class="badge up">▲ +50.8% WoW</span><span class="badge nu">~74 4w est.</span><span class="badge nu">YoY: N/A</span></div>
-  </div>
-  <div class="kpi-card yellow">
-    <div class="klabel">💸 AOV</div>
-    <div class="kvalue">₴7,203</div>
-    <div class="badges"><span class="badge dn">▼ -25.5% WoW</span><span class="badge nu">Prev: ₴9,662</span><span class="badge wn">⚠️ Mix shift</span></div>
-  </div>
-  <div class="kpi-card green">
-    <div class="klabel">📈 Конверсія</div>
-    <div class="kvalue">0.80%</div>
-    <div class="badges"><span class="badge up">▲ +40.4% WoW</span><span class="badge nu">Prev: 0.57%</span><span class="badge nu">YoY: N/A</span></div>
-  </div>
-  <div class="kpi-card">
-    <div class="klabel">👥 Сесії</div>
-    <div class="kvalue">11,163</div>
-    <div class="badges"><span class="badge up">▲ +7.0% WoW</span><span class="badge nu">Active: 8,007</span></div>
-  </div>
-  <div class="kpi-card green">
-    <div class="klabel">🆕 Нові юзери</div>
-    <div class="kvalue">6,701</div>
-    <div class="badges"><span class="badge up">▲ +5.2% WoW</span><span class="badge nu">60% від сесій</span></div>
-  </div>
-  <div class="kpi-card green">
-    <div class="klabel">🛍️ Add-to-Cart Rate</div>
-    <div class="kvalue">2.44%</div>
-    <div class="badges"><span class="badge up">▲ +13.0% WoW</span><span class="badge nu">272 events</span></div>
-  </div>
-  <div class="kpi-card green">
-    <div class="klabel">✅ Checkout Completion</div>
-    <div class="kvalue">31.6%</div>
-    <div class="badges"><span class="badge up">▲ +6.0% WoW</span><span class="badge wn">Bench: 40-60%</span></div>
+<!-- PORTFOLIO OVERVIEW -->
+<div class="section">
+  <div class="section-title">🌐 Portfolio Overview — всі 6 сайтів</div>
+  <table class="portfolio-table">
+    <thead>
+      <tr>
+        <th>Сайт</th>
+        <th>Revenue ₴ (цей тиж.)</th>
+        <th>WoW%</th>
+        <th>Транзакції</th>
+        <th>Сесії</th>
+        <th>Конверсія</th>
+        <th>AOV ₴</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="site-name">🥷 ninja-kitchen.com.ua</div></td>
+        <td><strong>₴582,961</strong></td>
+        <td><span class="wow-neg">−1.3%</span></td>
+        <td>82 <small class="text-muted">(67 мин)</small></td>
+        <td>10,913</td>
+        <td>0.75%</td>
+        <td>₴7,109</td>
+        <td><span class="status-ok">🟢</span></td>
+      </tr>
+      <tr>
+        <td><div class="site-name">🦈 sharkcleaning.com.ua</div></td>
+        <td><strong>₴61,593</strong></td>
+        <td><span class="wow-pos">+39.9%</span></td>
+        <td>7 <small>(3 мин)</small></td>
+        <td>4,273</td>
+        <td>0.16%</td>
+        <td>₴8,799</td>
+        <td><span class="status-ok">🟢</span></td>
+      </tr>
+      <tr>
+        <td><div class="site-name">🌿 levoit.com.ua</div></td>
+        <td><strong>₴63,983</strong></td>
+        <td><span class="wow-neg">−3.2%</span></td>
+        <td>15 <small>(13 мин)</small></td>
+        <td>960</td>
+        <td>1.56%</td>
+        <td>₴4,265</td>
+        <td><span class="status-ok">🟢</span></td>
+      </tr>
+      <tr>
+        <td><div class="site-name">📷 gopro-ukraine.com</div></td>
+        <td><strong>₴40,436</strong></td>
+        <td><span class="wow-neg" style="font-size:15px">−83.6% 🔴</span></td>
+        <td>13 <small>(11 мин)</small></td>
+        <td>2,455</td>
+        <td>0.53%</td>
+        <td>₴3,110</td>
+        <td><span class="status-crit">🔴</span></td>
+      </tr>
+      <tr>
+        <td><div class="site-name">📽️ xgimi.com.ua</div></td>
+        <td><strong>₴83,294</strong></td>
+        <td><span class="wow-pos">+69.9%</span></td>
+        <td>8 <small>(2 мин)</small></td>
+        <td>2,150</td>
+        <td>0.37%</td>
+        <td>₴10,412</td>
+        <td><span class="status-ok">🟢</span></td>
+      </tr>
+      <tr>
+        <td><div class="site-name">💡 light-ua.com.ua</div></td>
+        <td><strong>₴0</strong></td>
+        <td><span class="wow-neu">n/a</span></td>
+        <td>0 <small>(0 мин)</small></td>
+        <td>273</td>
+        <td>0%</td>
+        <td>—</td>
+        <td><span class="status-warn">⚠️</span></td>
+      </tr>
+      <tr class="total-row">
+        <td>📊 TOTAL PORTFOLIO</td>
+        <td>₴832,267</td>
+        <td><span class="wow-neg">−16.4%</span></td>
+        <td>125</td>
+        <td>21,024</td>
+        <td>0.59%</td>
+        <td>₴6,658</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="chart-grid" style="margin-top:24px">
+    <div class="chart-box">
+      <h3>Revenue по сайтах — цей тиждень vs минулий</h3>
+      <canvas id="portfolioBarChart"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Частка Revenue в портфоліо (цей тиждень)</h3>
+      <canvas id="portfolioPieChart"></canvas>
+    </div>
   </div>
 </div>
 
-<!-- AOV DECOMPOSITION -->
-<div class="info-box warn">
-  <strong style="color:var(--yellow)">⚠️ AOV Decomposition (зміна -25.5% — аналіз обов'язковий)</strong>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;font-size:13px;">
-    <div>
-      <div style="color:var(--muted);margin-bottom:6px;">Цей тиждень (89 транзакцій)</div>
-      <div>📱 Mobile: 67 транз × ₴7,188 avg = <strong>₴481,542</strong> (75% rev)</div>
-      <div>🖥️ Desktop: 21 транз × ₴7,120 avg = <strong>₴149,529</strong> (23% rev)</div>
-      <div style="margin-top:6px;color:var(--accent)">Топ: SLUSHI MG ₴97,993 (7шт), NC300 ₴49,995 (5шт)</div>
+<!-- NINJA KPI DETAIL -->
+<div class="section">
+  <div class="section-title">📊 Ninja Kitchen — Детальні KPI</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">💰 Revenue</div>
+      <div class="kpi-value">₴582,961</div>
+      <div class="kpi-wow wow-neg">WoW −1.3% (−₴7,892)</div>
+      <div class="kpi-sub">Минулий тиждень: ₴590,853</div>
     </div>
-    <div>
-      <div style="color:var(--muted);margin-bottom:6px;">Минулий тиждень (59 транзакцій)</div>
-      <div>📱 Mobile: 42 транз × ₴8,379 avg = <strong>₴351,925</strong> (62% rev)</div>
-      <div>🖥️ Desktop: 17 транз × ₴12,832 avg = <strong>₴218,153</strong> (38% rev)</div>
-      <div style="margin-top:6px;color:var(--green)">Desktop домінував преміум-SKU. Різниця в mix → AOV -25.5%</div>
+    <div class="kpi-card">
+      <div class="kpi-label">🛒 Транзакції</div>
+      <div class="kpi-value">82</div>
+      <div class="kpi-wow wow-pos">WoW +22.4% (+15 замовл.)</div>
+      <div class="kpi-sub">Минулий тиждень: 67</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">👥 Сесії</div>
+      <div class="kpi-value">10,913</div>
+      <div class="kpi-wow wow-pos">WoW +3.1% (+323)</div>
+      <div class="kpi-sub">Активні користувачі: 7,855</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">💳 AOV</div>
+      <div class="kpi-value">₴7,109</div>
+      <div class="kpi-wow wow-neg">WoW −19.4% (−₴1,712)</div>
+      <div class="kpi-sub">Мин. тиждень: ₴8,819</div>
     </div>
   </div>
-  <div style="margin-top:12px;padding:10px;background:var(--bg3);border-radius:8px;font-size:13px;">
-    <strong>Висновок:</strong> AOV падіння не є критичним — транзакцій +50.8%, revenue +12.5%. Більше дрібних замовлень замість менше великих. Слідкувати за трендом наступного тижня.
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">📈 Конверсія</div>
+      <div class="kpi-value">0.75%</div>
+      <div class="kpi-wow wow-pos">WoW +18.6% (0.63% мин.)</div>
+      <div class="kpi-sub">Бенчмарк e-commerce UA: ~1.5-2%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">🛍️ Add to Cart</div>
+      <div class="kpi-value">269</div>
+      <div class="kpi-wow wow-pos">WoW +12.1% (240 мин.)</div>
+      <div class="kpi-sub">ATC rate: 2.46% сесій</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">💸 Abandoned Cart</div>
+      <div class="kpi-value">₴1,473,215</div>
+      <div class="kpi-wow wow-neg">(287 checkout − 82 purchase) × ₴7,109</div>
+      <div class="kpi-sub">205 незавершених checkout</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">❌ pay_order_not_ok</div>
+      <div class="kpi-value" style="color:var(--yellow)">27</div>
+      <div class="kpi-wow wow-neg">WoW +125% (12 мин. тиж.)</div>
+      <div class="kpi-sub">Нижче порогу 30 ✓</div>
+    </div>
   </div>
 </div>
 
-<!-- REVENUE CHARTS -->
-<div id="revenue"><div class="section-header"><h2>💰 Динаміка продажів (14 днів)</h2><div class="line"></div></div></div>
-<div class="chart-grid">
-  <div class="chart-card">
-    <h3>Revenue по днях, ₴ (сірий=мин.тиж, червоний=цей)</h3>
-    <div class="chart-container"><canvas id="revenueChart"></canvas></div>
-  </div>
-  <div class="chart-card">
-    <h3>Транзакції по днях</h3>
-    <div class="chart-container"><canvas id="txChart"></canvas></div>
-  </div>
+<!-- DAILY CHART -->
+<div class="chart-full">
+  <h3>💰 Ninja Kitchen — Revenue по днях (28 квіт. – 11 трав. 2026)</h3>
+  <canvas id="dailyChart" style="max-height:260px"></canvas>
 </div>
 
 <!-- CHANNELS -->
-<div id="channels"><div class="section-header"><h2>🚦 Канали трафіку</h2><div class="line"></div></div></div>
-<div class="table-wrap">
-  <table>
-    <thead><tr><th>Канал</th><th>Sessions</th><th>WoW сесії</th><th>Revenue ₴</th><th>WoW rev</th><th>Conv%</th><th>Bounce%</th><th>Spend</th><th>Статус</th></tr></thead>
+<div class="section">
+  <div class="section-title">🚦 Ninja Kitchen — Канали трафіку (цей тиждень)</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Канал</th>
+        <th>Sessions</th>
+        <th>Revenue ₴</th>
+        <th>Транзакції</th>
+        <th>Conv%</th>
+        <th>AOV ₴</th>
+        <th>WoW Revenue</th>
+        <th>Примітка</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td>🔴 Cross-network</td><td>3,930</td><td><span class="badge up">▲+6.4%</span></td><td>₴121,121</td><td><span class="badge dn">▼-27.7%</span></td><td>0.48%</td><td>42.6%</td><td>N/A</td><td><span class="tag tag-r">🚨Attribution</span></td></tr>
-      <tr><td>🟠 Unassigned</td><td>482</td><td><span class="badge dn">▼-35.6%</span></td><td>₴143,244</td><td><span class="badge up">▲+177.8%</span></td><td>5.2%</td><td>42.5%</td><td>N/A</td><td><span class="tag tag-r">🚨Attribution</span></td></tr>
-      <tr><td>🟢 Organic Search</td><td>1,979</td><td><span class="badge dn">▼-6.3%</span></td><td>₴17,098</td><td><span class="badge dn">▼-89.1%</span></td><td>0.10%</td><td>32.1%</td><td>N/A</td><td><span class="tag tag-r">🚨ОБВАЛ</span></td></tr>
-      <tr><td>🟡 Direct</td><td>1,234</td><td><span class="badge up">▲+26.9%</span></td><td>₴83,305</td><td><span class="badge up">▲+1,267%</span></td><td>0.97%</td><td>52.4%</td><td>N/A</td><td><span class="tag tag-g">✅Зростання</span></td></tr>
-      <tr><td>🟣 Paid Social</td><td>1,401</td><td><span class="badge dn">▼-6.7%</span></td><td>₴70,492</td><td><span class="badge up">▲+87.0%</span></td><td>0.57%</td><td>48.3%</td><td>N/A</td><td><span class="tag tag-g">✅Ефективний</span></td></tr>
-      <tr><td>📧 Email</td><td>216</td><td><span class="badge up">▲+13.7%</span></td><td>₴101,741</td><td><span class="badge up">▲+394%</span></td><td>4.17%</td><td>49.1%</td><td>N/A</td><td><span class="tag tag-g">⭐ Топ ROI</span></td></tr>
-      <tr><td>📱 Organic Social</td><td>827</td><td><span class="badge up">▲+149.8%</span></td><td>₴43,777</td><td><span class="badge dn">▼-46.3%</span></td><td>0.73%</td><td>24.5%</td><td>N/A</td><td><span class="tag tag-y">Моніторинг</span></td></tr>
-      <tr><td>🔵 Paid Search</td><td>763</td><td><span class="badge up">▲+9.8%</span></td><td>₴41,294</td><td><span class="badge up">▲+27.0%</span></td><td>0.79%</td><td>32.0%</td><td>N/A</td><td><span class="tag tag-g">✅Стабільно</span></td></tr>
+      <tr>
+        <td><strong>Cross-network</strong></td>
+        <td>3,860</td>
+        <td>₴141,973</td>
+        <td>20</td>
+        <td>0.52%</td>
+        <td>₴7,099</td>
+        <td class="wow-neg">−16.1%</td>
+        <td><span class="badge-warn">⚠️ 35.4% сесій</span></td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--yellow)">Unassigned</strong></td>
+        <td>478</td>
+        <td class="highlight">₴127,746</td>
+        <td>23</td>
+        <td>4.81%</td>
+        <td>₴5,554</td>
+        <td class="wow-pos">+203.5%</td>
+        <td><span class="badge-crit">🔴 UTM не визначено</span></td>
+      </tr>
+      <tr>
+        <td><strong>Email</strong></td>
+        <td>208</td>
+        <td>₴88,442</td>
+        <td>8</td>
+        <td>3.85%</td>
+        <td>₴11,055</td>
+        <td class="wow-pos">+161.1%</td>
+        <td><span class="badge-ok">🟢 Найвища Conv%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Organic Search</strong></td>
+        <td>1,981</td>
+        <td>₴11,097</td>
+        <td>2</td>
+        <td>0.10%</td>
+        <td>₴5,549</td>
+        <td class="wow-neg" style="font-size:13px;font-weight:700">−90.8% 🔴</td>
+        <td><span class="badge-crit">Аномалія — перевірити</span></td>
+      </tr>
+      <tr>
+        <td><strong>Organic Social</strong></td>
+        <td>815</td>
+        <td>₴54,677</td>
+        <td>6</td>
+        <td>0.74%</td>
+        <td>₴9,113</td>
+        <td class="wow-neg">−34.6%</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Direct</strong></td>
+        <td>1,189</td>
+        <td>₴48,742</td>
+        <td>7</td>
+        <td>0.59%</td>
+        <td>₴6,963</td>
+        <td class="wow-pos">+1.2%</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Paid Social</strong></td>
+        <td>1,412</td>
+        <td>₴49,992</td>
+        <td>8</td>
+        <td>0.57%</td>
+        <td>₴6,249</td>
+        <td class="wow-neg">−14.8%</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Paid Search</strong></td>
+        <td>766</td>
+        <td>₴41,294</td>
+        <td>6</td>
+        <td>0.78%</td>
+        <td>₴6,882</td>
+        <td class="wow-pos">+111.8%</td>
+        <td><span class="badge-ok">🟢 Зростання</span></td>
+      </tr>
     </tbody>
   </table>
-</div>
-
-<div class="info-box danger">
-  <strong style="color:var(--accent)">🚨 ATTRIBUTION ALERT:</strong>
-  (Cross-network ₴121,121 + Unassigned ₴143,244) / Total ₴641,070 = <strong style="color:var(--accent)">41.2%</strong> — КРИТИЧНО вище benchmark 15%.
-  <div style="margin-top:8px;font-size:13px;color:var(--muted)">Дія: перевірити UTM параметри на всіх активних кампаніях, налаштування GA4 channel grouping, та чи правильно передаються параметри через редиректи та платіжні шлюзи.</div>
-</div>
-
-<div class="chart-card" style="margin-bottom:24px;">
-  <h3>Revenue по каналах: цей тиждень</h3>
-  <div class="chart-container" style="height:260px;"><canvas id="channelChart"></canvas></div>
+  <div class="unassigned-alert">
+    <strong>⚠️ Attribution Alert:</strong> Cross-network (35.4%) + Unassigned (4.4%) = 39.8% сесій без чіткої атрибуції. Unassigned генерує ₴127,746 (22% тижневого revenue) з аномально高 конверсією 4.81% — можливо офлайн-конверсії або помилка в налаштуванні GA4.
+  </div>
 </div>
 
 <!-- FUNNEL -->
-<div id="funnel"><div class="section-header"><h2>🔽 Воронка конверсій</h2><div class="line"></div></div></div>
-<div class="table-wrap">
-  <table>
-    <thead><tr><th>Крок</th><th>Цей тиж.</th><th>Мин. тиж.</th><th>WoW%</th><th>Benchmark</th><th>Gap / Gap ₴</th></tr></thead>
+<div class="section">
+  <div class="section-title">🔽 Ninja Kitchen — Воронка конверсії</div>
+  <table class="data-table funnel-row">
+    <thead>
+      <tr>
+        <th>Крок воронки</th>
+        <th>Цей тиж.</th>
+        <th>Мин. тиж.</th>
+        <th>WoW%</th>
+        <th>Conv від сесій</th>
+        <th>Drop-off до наст. кроку</th>
+        <th>Gap ₴ (при норм. conv)</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td>Sessions</td><td>11,163</td><td>10,436</td><td><span class="badge up">▲+7.0%</span></td><td>—</td><td>—</td></tr>
-      <tr><td>view_item</td><td>10,936</td><td>10,567</td><td><span class="badge up">▲+3.5%</span></td><td>—</td><td>—</td></tr>
-      <tr><td>add_to_cart</td><td>272</td><td>225</td><td><span class="badge up">▲+20.9%</span></td><td>ATC rate 3–5%</td><td style="color:var(--yellow)">2.44% vs bench 3% → +₴39,600/тиж при досягненні</td></tr>
-      <tr><td>begin_checkout</td><td>282</td><td>198</td><td><span class="badge up">▲+42.4%</span></td><td>—</td><td>—</td></tr>
-      <tr><td><strong>purchase</strong></td><td><strong>89</strong></td><td><strong>59</strong></td><td><span class="badge up">▲+50.8%</span></td><td>Checkout comp 40–60%</td><td style="color:var(--accent)">31.6% → Abandoned: <strong>₴1,390,179</strong></td></tr>
+      <tr>
+        <td>🔵 Sessions</td>
+        <td>10,913</td>
+        <td>10,590</td>
+        <td class="wow-pos">+3.1%</td>
+        <td>100%</td>
+        <td>→ view_item: 98.7%</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>👁️ View Item</td>
+        <td>10,770 users: 4,841</td>
+        <td>10,766</td>
+        <td class="wow-neu">+0.04%</td>
+        <td>98.7%</td>
+        <td>→ ATC: 55.8%</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>🛒 Add to Cart</td>
+        <td>269</td>
+        <td>240</td>
+        <td class="wow-pos">+12.1%</td>
+        <td>2.46%</td>
+        <td>→ Checkout: +6.7%</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>💳 Begin Checkout</td>
+        <td>287</td>
+        <td>217</td>
+        <td class="wow-pos">+32.3%</td>
+        <td>2.63%</td>
+        <td>→ Purchase: 71.4%</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>✅ Purchase</td>
+        <td>82</td>
+        <td>67</td>
+        <td class="wow-pos">+22.4%</td>
+        <td>0.75%</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,0.07)">
+        <td><strong>💸 Abandoned Cart</strong></td>
+        <td colspan="3"><strong>205 незавершених checkout (287−82)</strong></td>
+        <td colspan="2"><strong class="lost-rev">₴1,473,215 потенційних втрат</strong></td>
+        <td class="lost-rev"><strong>(205 × AOV ₴7,109)</strong></td>
+      </tr>
     </tbody>
   </table>
-</div>
-
-<div class="info-box warn">
-  <strong style="color:var(--yellow)">🛒 Abandoned Cart Potential:</strong>
-  (282 begin_checkout − 89 purchases) = <strong>193 незавершених</strong> × AOV ₴7,203 = <strong style="color:var(--yellow)">₴1,390,179</strong>
-  <div style="margin-top:8px;font-size:13px;color:var(--muted)">Checkout completion 31.6% — нижче бенчмарку 40-60%. Рекомендація: запустити abandoned cart email sequence (3 листи: 1h, 24h, 72h після кидання кошика). При досягненні 40% → +₴60,745 доходу/тиж.</div>
 </div>
 
 <!-- PRODUCTS -->
-<div id="products"><div class="section-header"><h2>📦 Продукти</h2><div class="line"></div></div></div>
-<div class="two-col">
-  <div class="table-wrap">
-    <div style="padding:12px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted)">💰 Топ-5 за доходом (цей тиждень)</div>
-    <table>
-      <thead><tr><th>#</th><th>Товар</th><th>Revenue</th><th>Шт.</th><th>Price</th></tr></thead>
-      <tbody>
-        <tr><td><strong style="color:var(--yellow)">1</strong></td><td>ninja-kitchen.com.ua (generic*)</td><td>₴98,957</td><td>17</td><td>₴5,821</td></tr>
-        <tr><td><strong style="color:var(--yellow)">2</strong></td><td>Фризер SLUSHI FS301EUMG ⭐</td><td>₴97,993</td><td>7</td><td>₴13,999</td></tr>
-        <tr><td><strong style="color:var(--muted)">3</strong></td><td>Морозивниця NC300EU</td><td>₴49,995</td><td>5</td><td>₴9,999</td></tr>
-        <tr><td><strong style="color:#cd7f32">4</strong></td><td>Мультипіч SL451EU</td><td>₴29,998</td><td>2</td><td>₴14,999</td></tr>
-        <tr><td>5</td><td>Мультипіч Foodi MAX AF451EU</td><td>₴28,497</td><td>3</td><td>₴9,499</td></tr>
-      </tbody>
-    </table>
-    <div style="padding:8px 14px;font-size:11px;color:var(--muted)">* "ninja-kitchen.com.ua" — generic item tracking, потребує виправлення у GTM</div>
-  </div>
-  <div class="table-wrap">
-    <div style="padding:12px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted)">⚠️ Lost Revenue — переглянуто, але не куплено</div>
-    <table>
-      <thead><tr><th>#</th><th>Товар</th><th>Views</th><th>ATC</th><th>Куп.</th><th>Потенціал ₴</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>Кавомашина Luxe ES501EU</td><td>238</td><td>1</td><td>0</td><td style="color:var(--yellow)">~₴38,080</td></tr>
-        <tr><td>2</td><td>Кавомашина Luxe ES601EU</td><td>210</td><td>1</td><td>0</td><td style="color:var(--yellow)">~₴36,960</td></tr>
-        <tr><td>3</td><td>Кавоварка CFN802EU</td><td>206</td><td>0</td><td>0</td><td style="color:var(--yellow)">~₴29,664</td></tr>
-        <tr><td>4</td><td>Ninja Crispi FN101EUGY</td><td>230</td><td>14</td><td>1</td><td style="color:var(--yellow)">~₴17,365</td></tr>
-        <tr><td>5</td><td>Мультипіч MAX AF100EU</td><td>169</td><td>4</td><td>0</td><td style="color:var(--yellow)">~₴10,816</td></tr>
-      </tbody>
-    </table>
-    <div style="padding:8px 14px;font-size:11px;color:var(--muted)">* Потенціал = views × site conv 0.80% × est. price. Гіпотеза кавомашин: брак відгуків або ціна vs ринок.</div>
-  </div>
-</div>
-
-<!-- INSIGHTS -->
-<div id="insights"><div class="section-header"><h2>💡 Ключові інсайти тижня</h2><div class="line"></div></div></div>
-<div class="insights-grid">
-  <div class="insight-card">
-    <div class="inum">Інсайт #1</div>
-    <div class="ititle">📧 Email — канал-чемпіон тижня</div>
-    <div class="ibody">216 сесій, але <strong>₴101,741 revenue</strong> і 9 транзакцій. Conv rate 4.17% vs сайтовий 0.80%. AOV ₴11,304 — на 57% вищий за середній. Revenue зріс +394% WoW.</div>
-    <div class="iaction">💰 <span class="money">₴101,741 цього тижня</span> → Масштабувати email частоту, запустити abandoned cart sequence. Хто: Marketing. До: 14/05.</div>
-  </div>
-  <div class="insight-card">
-    <div class="inum">Інсайт #2</div>
-    <div class="ititle">🧊 SLUSHI фризери — конверсійна зірка</div>
-    <div class="ibody">SLUSHI FS301EUMG: 7 продажів із 212 переглядів = <strong>3.3% item conv</strong> (vs сайт 0.80% — 4x вище). Загалом фризери дали ~₴140k. Paid Social ефективний (якість зросла при -7% сесій).</div>
-    <div class="iaction">💰 <span class="money">Потенціал ×1.5-2</span> → Збільшити Paid Social бюджет на SLUSHI, cross-sell з NC300. До: 15/05.</div>
-  </div>
-  <div class="insight-card">
-    <div class="inum">Інсайт #3</div>
-    <div class="ititle">☕ Кавомашини: 856 переглядів, 0 продажів</div>
-    <div class="ibody">ES501+ES601+ES701+CFN802 = <strong>856 переглядів</strong> за тиждень. ATC разом: 5. Продажів: 0. Категорія цікава, але щось блокує конверсію.</div>
-    <div class="iaction">💰 <span class="money">~₴105K потенціал</span> → Перевірити ціни vs конкурентів, додати відгуки, targeted email по сегменту. До: 14/05.</div>
-  </div>
-  <div class="insight-card">
-    <div class="inum">Інсайт #4</div>
-    <div class="ititle">📱 Mobile домінує — AOV mix shift</div>
-    <div class="ibody">Mobile: 78% сесій, 75% revenue. Минулого тижня Desktop давав AOV ₴12,832 і 38% revenue. Цього тижня — ₴7,120 і 23%. Зсув до мобільного mid-range покупця знизив загальний AOV.</div>
-    <div class="iaction">💡 Оптимізувати Desktop checkout (потенціал більшого AOV). Mobile bounce 39.9% — перевірити швидкість завантаження на мобільних.</div>
-  </div>
-  <div class="insight-card">
-    <div class="inum">Інсайт #5</div>
-    <div class="ititle">🔗 Direct +1,267% WoW — бренд-ефект</div>
-    <div class="ibody">Direct: ₴83,305 vs ₴6,097 минулого. 12 vs 3 транзакції. Різке зростання — ймовірно пов'язано з email кампанією або офлайн активністю (люди набирають URL напряму).</div>
-    <div class="iaction">💡 З'ясувати джерело: чи була офлайн активність? QR-коди? Якщо email-driven — це підтверджує необхідність масштабувати email.</div>
-  </div>
-  <div class="insight-card">
-    <div class="inum">Інсайт #6</div>
-    <div class="ititle">🗓️ Середа-Четвер = пік тижня</div>
-    <div class="ibody">Ср 06.05: ₴133,692 (18 транз) — максимум. Чт 07.05: ₴96,262. Найгірші: Сб 03.05 ₴27,445 (5 транз), Пт 09.05 ₴34,794. Тижневий паттерн стабільний.</div>
-    <div class="iaction">💡 Планувати email розсилки на вівторок (пік читання) для конверсій в середу-четвер. Уникати великих акцій у вихідні.</div>
-  </div>
-</div>
-
-<!-- TECH -->
-<div id="tech"><div class="section-header"><h2>⚙️ Технічні алерти</h2><div class="line"></div></div></div>
-<div class="table-wrap">
-  <table>
-    <thead><tr><th>Метрика</th><th>Значення</th><th>Поріг</th><th>Статус</th><th>Примітка</th></tr></thead>
+<div class="section">
+  <div class="section-title">📦 Ninja Kitchen — Топ продукти (цей тиждень)</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Товар</th>
+        <th>Revenue ₴</th>
+        <th>Куплено</th>
+        <th>Переглядів</th>
+        <th>ATC</th>
+        <th>Conv Views→Buy</th>
+        <th>Lost Revenue ₴</th>
+        <th>Гіпотеза</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td>Attribution (Cross-net+Unassigned)</td><td>41.2%</td><td>&lt;15%</td><td><span class="tag tag-r">🚨КРИТИЧНО</span></td><td>₴264,365 без attribution. UTM аудит обов'язковий</td></tr>
-      <tr><td>Organic Search revenue WoW</td><td>-89.1%</td><td>&lt;-50%</td><td><span class="tag tag-r">🚨КРИТИЧНО</span></td><td>₴17,098 vs ₴157,486. GSC аудит терміново</td></tr>
-      <tr><td>pay_order_not_ok</td><td>25/тиж</td><td>&lt;30</td><td><span class="tag tag-y">⚠️УВАГА</span></td><td>+127% WoW. Тренд тривожний, поріг близько</td></tr>
-      <tr><td>binotel_bi_deal_created</td><td>51</td><td>—</td><td><span class="tag tag-y">▼-19% WoW</span></td><td>63 → 51. Менше лідів з дзвінків</td></tr>
-      <tr><td>Revenue WoW</td><td>+12.5%</td><td>&gt;-20%</td><td><span class="tag tag-g">✅OK</span></td><td>В нормі</td></tr>
-      <tr><td>Conversion Rate WoW</td><td>+40.4%</td><td>&gt;-30%</td><td><span class="tag tag-g">✅OK</span></td><td>В нормі</td></tr>
-      <tr><td>AOV WoW</td><td>-25.5%</td><td>&lt;-30%</td><td><span class="tag tag-y">⚠️Моніторинг</span></td><td>Mix shift, не критично але слідкувати</td></tr>
+      <tr>
+        <td>1</td>
+        <td><strong>Ninja SLUSHI FS301EUMG</strong></td>
+        <td class="highlight">₴83,994</td>
+        <td>6</td>
+        <td>216</td>
+        <td>13</td>
+        <td>2.78%</td>
+        <td>—</td>
+        <td>✅ Добре конвертує</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Морозивниця NC300EU</strong></td>
+        <td>₴29,997</td>
+        <td>3</td>
+        <td>563</td>
+        <td>13</td>
+        <td>0.53%</td>
+        <td class="lost-rev">₴56,000</td>
+        <td>⚠️ Багато переглядів, мало покупок — ціна? фото?</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,0.05)">
+        <td>3</td>
+        <td><strong>SLUSHI FS301EU (базова)</strong></td>
+        <td>₴13,999</td>
+        <td>1</td>
+        <td>437</td>
+        <td>15</td>
+        <td>0.23%</td>
+        <td class="lost-rev">₴83,987</td>
+        <td>🔴 Критично низька конверсія. 437 переглядів → 1 покупка</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Блендер BN495EU</td>
+        <td>₴29,996</td>
+        <td>4</td>
+        <td>44</td>
+        <td>4</td>
+        <td>9.09%</td>
+        <td>—</td>
+        <td>✅ Відмінна конверсія</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Мультипіч AF451EU MAX</td>
+        <td>₴28,497</td>
+        <td>3</td>
+        <td>141</td>
+        <td>6</td>
+        <td>2.13%</td>
+        <td>—</td>
+        <td>✅ Нормально</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Мультипіч AF180EUWH MAX PRO</td>
+        <td>₴20,997</td>
+        <td>3</td>
+        <td>147</td>
+        <td>8</td>
+        <td>2.04%</td>
+        <td>—</td>
+        <td>✅ Нормально</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Гриль AG651EU MAX Pro</td>
+        <td>₴18,999</td>
+        <td>1</td>
+        <td>98</td>
+        <td>2</td>
+        <td>1.02%</td>
+        <td class="lost-rev">₴18,999</td>
+        <td>⚠️ Низько для преміум-грилю</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Мультиварка OL650EU 7.5л</td>
+        <td>₴18,999</td>
+        <td>1</td>
+        <td>122</td>
+        <td>6</td>
+        <td>0.82%</td>
+        <td class="lost-rev">₴37,998</td>
+        <td>⚠️ 6 в кошику, 1 покупка — abandon issue?</td>
+      </tr>
+      <tr style="background:rgba(34,197,94,0.05)">
+        <td>9</td>
+        <td>Email канал (site-level)</td>
+        <td class="highlight">₴98,957</td>
+        <td>17</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>✅ Найбільший окремий рядок</td>
+      </tr>
     </tbody>
   </table>
 </div>
 
-<div class="report-footer">
-  <p>🥷 Ninja Kitchen UA — Weekly eCommerce Report | Тиждень 19 | 04–10 травня 2026</p>
-  <p style="margin-top:4px">Наступний звіт: <strong>18 травня 2026</strong> о 09:00 Kyiv</p>
-  <p style="margin-top:4px"><a href="https://ninja-analytics-zeta.vercel.app">ninja-analytics-zeta.vercel.app</a> · Extreme Pride AI Team</p>
-  <p style="margin-top:8px;color:var(--bg3);font-size:10px">Дані: GA4 ninja-kitchen.com.ua | UAH | Часовий пояс: Europe/Kyiv | Звіт згенеровано: 2026-05-11</p>
+<!-- INSIGHTS -->
+<div class="section">
+  <div class="section-title">💡 Ключові інсайти тижня</div>
+  <div class="insights-grid">
+    <div class="insight-card">
+      <div class="ic-num">01</div>
+      <div class="ic-title">GoPro: AOV впав з ₴22,371 → ₴3,110 (−86%) при зростанні транзакцій</div>
+      <div class="ic-body">Трансакцій більше (13 vs 11), але revenue обвалився на 83.6%. Класична ознака або: 1) великі B2B замовлення минулого тижня, 2) помилка в трекінгу цін. Портфоліо втратило ₴205K через цей один сайт.</div>
+      <div class="ic-action">→ Звірити GA4 revenue з 1С за обидва тижні. Відповідальний: Ecomm. До: 12.05</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-num">02</div>
+      <div class="ic-title">Email — найефективніший канал ninja-kitchen: AOV ₴11,055, Conv 3.85%</div>
+      <div class="ic-body">208 сесій з email принесли ₴88,442 — це 15.2% від revenue сайту при 1.9% сесій. Email ROAS кратно вищий від paid каналів. Канал недоінвестований.</div>
+      <div class="ic-action">→ Збільшити частоту розсилок, сегментувати базу. Маркетинг, 19.05</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-num">03</div>
+      <div class="ic-title">Organic Search: revenue −90.8% при стабільних сесіях (−3.9%)</div>
+      <div class="ic-body">1,981 сесій з органіки принесли лише ₴11,097 (vs ₴120,488 минулого тижня). Конверсія впала з 0.58% до 0.10%. Трафік є — конвертує перестав. Можлива зміна в checkout або помилка трекінгу для цього сегменту.</div>
+      <div class="ic-action">→ Перевірити чи не зламаний checkout для органічних users. SEO + Dev, 13.05</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-num">04</div>
+      <div class="ic-title">Xgimi: +69.9% WoW, AOV ₴10,412 — найвищий по портфоліо</div>
+      <div class="ic-body">З 2 транзакцій до 8. ₴83,294 цього тижня. Сайт зростає, але конверсія 0.37% ще дуже низька для преміум-проекторів. При 2,150 сесіях потенціал значно вищий.</div>
+      <div class="ic-action">→ Аналіз воронки xgimi, оптимізація product pages. Ecomm, 16.05</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-num">05</div>
+      <div class="ic-title">Abandoned Cart ninja-kitchen: ₴1.47M потенційних втрат на тиждень</div>
+      <div class="ic-body">205 користувачів дійшли до checkout але не купили. При AOV ₴7,109 — це ₴1,473,215. Навіть відновлення 10% = +₴147K/тиждень. pay_order_not_ok зріс до 27 (+125% WoW) — можлива проблема з платіжними методами.</div>
+      <div class="ic-action">→ Налаштувати abandoned cart email flow + перевірити платіжний шлюз. Dev + Marketing, 16.05</div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-num">06</div>
+      <div class="ic-title">Shark: +39.9% WoW, але конверсія 0.16% — найнижча по портфоліо</div>
+      <div class="ic-body">4,273 сесії → лише 7 транзакцій. Трафік є, сайт не продає. AOV ₴8,799 — хороший, але обсяги мінімальні. При конверсії хоча б 0.5% = ~21 транзакцій = ~₴185K/тиж.</div>
+      <div class="ic-action">→ CRO аудит sharkcleaning.com.ua: воронка, CTA, форма замовлення. Ecomm, 16.05</div>
+    </div>
+  </div>
 </div>
+
+<!-- TECHNICAL -->
+<div class="section">
+  <div class="section-title">⚙️ Технічні алерти — ninja-kitchen.com.ua</div>
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="tc-label">❌ pay_order_not_ok</div>
+      <div class="tc-value" style="color:var(--yellow)">27</div>
+      <div class="tc-status"><span class="badge-warn">+125% WoW (12 мин. тиж.)</span><br>Нижче критичного порогу 30 ✓</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-label">📊 Attribution (Unassigned)</div>
+      <div class="tc-value" style="color:var(--red)">4.4%</div>
+      <div class="tc-status"><span class="badge-crit">₴127,746 без атрибуції</span><br>Потрібно виправити UTM</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-label">🔗 Cross-network частка</div>
+      <div class="tc-value" style="color:var(--yellow)">35.4%</div>
+      <div class="tc-status"><span class="badge-warn">Домінуючий канал</span><br>Норма: 15-25%</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-label">📈 Add to Cart Rate</div>
+      <div class="tc-value" style="color:var(--green)">2.46%</div>
+      <div class="tc-status"><span class="badge-ok">+12.1% WoW</span><br>Позитивна динаміка</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-label">💳 Checkout Completion</div>
+      <div class="tc-value" style="color:var(--yellow)">28.6%</div>
+      <div class="tc-status"><span class="badge-warn">82 з 287 checkout</span><br>Бенчмарк: ~40-50%</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-label">🌐 light-ua.com.ua</div>
+      <div class="tc-value" style="color:var(--red)">₴0</div>
+      <div class="tc-status"><span class="badge-crit">273 сесії, 0 продажів</span><br>Діагностика обов'язкова</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  🥷 Extreme Pride AI Team · Звіт сформовано автоматично 12 травня 2026 · Дані: Google Analytics 4<br>
+  Оновлюється щопонеділка о 09:00 Київ · <strong>ninja-analytics-zeta.vercel.app</strong>
 </div>
 
 <script>
-const chartOpts = {
-  responsive:true, maintainAspectRatio:false,
-  plugins:{legend:{labels:{color:'#94a3b8',font:{size:11}}}},
-  scales:{x:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'#2d3748'}},y:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'#2d3748'}}}
-};
-const labels=['27/04','28/04','29/04','30/04','01/05','02/05','03/05','04/05','05/05','06/05','07/05','08/05','09/05','10/05'];
-const revenues=[109216,86988,46070,72590,128084,99685,27445,129991,116057,133692,96262,65689,34794,64585];
-const txData=[9,9,5,10,14,7,5,17,15,18,13,10,6,10];
-const sessData=[1362,1419,1425,1791,1582,1385,1609,1534,1354,1733,1723,1637,1475,1574];
-
-new Chart(document.getElementById('revenueChart'),{
-  type:'bar',
-  data:{labels,datasets:[{label:'Revenue ₴',data:revenues,
-    backgroundColor:labels.map((_,i)=>i<7?'rgba(148,163,184,0.35)':'rgba(232,53,42,0.7)'),
-    borderColor:labels.map((_,i)=>i<7?'#94a3b8':'#e8352a'),
-    borderWidth:1,borderRadius:4}]},
-  options:{...chartOpts,plugins:{...chartOpts.plugins,legend:{display:false}}}
-});
-
-new Chart(document.getElementById('txChart'),{
-  type:'line',
-  data:{labels,datasets:[
-    {label:'Транзакції',data:txData,borderColor:'#e8352a',backgroundColor:'rgba(232,53,42,0.1)',tension:0.4,fill:true,pointBackgroundColor:'#e8352a',pointRadius:4},
-    {label:'Сесії/10',data:sessData.map(s=>s/10),borderColor:'#94a3b8',backgroundColor:'transparent',tension:0.4,borderDash:[4,4],pointRadius:2}
-  ]},
-  options:chartOpts
-});
-
-new Chart(document.getElementById('channelChart'),{
-  type:'doughnut',
-  data:{
-    labels:['Cross-network','Unassigned','Email','Direct','Paid Social','Organic Social','Paid Search','Organic Search','Other'],
-    datasets:[{data:[121121,143244,101741,83305,70492,43777,41294,17098,18997],
-      backgroundColor:['#e8352a','#ff6b35','#06b6d4','#f59e0b','#8b5cf6','#ec4899','#0ea5e9','#22c55e','#6b7280'],
-      borderColor:'#1e2535',borderWidth:2}]
+// Portfolio Bar Chart
+const barCtx = document.getElementById('portfolioBarChart').getContext('2d');
+new Chart(barCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Ninja Kitchen', 'Shark', 'Levoit', 'GoPro', 'Xgimi', 'Light-UA'],
+    datasets: [
+      {
+        label: 'Цей тиждень ₴',
+        data: [582961, 61593, 63983, 40436, 83294, 0],
+        backgroundColor: 'rgba(232,53,42,0.8)',
+        borderColor: '#e8352a',
+        borderWidth: 1,
+        borderRadius: 4
+      },
+      {
+        label: 'Минулий тиждень ₴',
+        data: [590853, 43997, 66087, 246084, 48998, 0],
+        backgroundColor: 'rgba(148,163,184,0.3)',
+        borderColor: 'rgba(148,163,184,0.6)',
+        borderWidth: 1,
+        borderRadius: 4
+      }
+    ]
   },
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:'#94a3b8',font:{size:11},padding:10}}}}
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#e2e8f0', font: { size: 11 } } },
+      tooltip: {
+        callbacks: {
+          label: ctx => `${ctx.dataset.label}: ₴${ctx.parsed.y.toLocaleString('uk-UA')}`
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(45,55,72,0.5)' } },
+      y: { ticks: { color: '#94a3b8', font: { size: 10 }, callback: v => '₴'+v.toLocaleString('uk-UA') }, grid: { color: 'rgba(45,55,72,0.5)' } }
+    }
+  }
+});
+
+// Portfolio Pie Chart
+const pieCtx = document.getElementById('portfolioPieChart').getContext('2d');
+new Chart(pieCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Ninja Kitchen 70%', 'Shark 7.4%', 'Levoit 7.7%', 'GoPro 4.9%', 'Xgimi 10.0%', 'Light-UA 0%'],
+    datasets: [{
+      data: [582961, 61593, 63983, 40436, 83294, 0],
+      backgroundColor: ['#e8352a','#3b82f6','#22c55e','#f59e0b','#8b5cf6','#64748b'],
+      borderColor: '#0f1117',
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 8 } },
+      tooltip: {
+        callbacks: {
+          label: ctx => `₴${ctx.parsed.toLocaleString('uk-UA')}`
+        }
+      }
+    }
+  }
+});
+
+// Daily Revenue Chart
+const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+new Chart(dailyCtx, {
+  type: 'line',
+  data: {
+    labels: ['28 кв', '29 кв', '30 кв', '01 тр', '02 тр', '03 тр', '04 тр', '05 тр', '06 тр', '07 тр', '08 тр', '09 тр', '10 тр', '11 тр'],
+    datasets: [{
+      label: 'Revenue ₴',
+      data: [86988, 46070, 72590, 128084, 99685, 27445, 129991, 116057, 133692, 96262, 65689, 34794, 64585, 71882],
+      borderColor: '#e8352a',
+      backgroundColor: 'rgba(232,53,42,0.1)',
+      borderWidth: 2,
+      pointBackgroundColor: '#e8352a',
+      pointRadius: 4,
+      fill: true,
+      tension: 0.3
+    },{
+      label: 'Транзакції',
+      data: [9, 5, 10, 14, 7, 5, 17, 15, 18, 13, 10, 6, 10, 10],
+      borderColor: '#22c55e',
+      backgroundColor: 'transparent',
+      borderWidth: 2,
+      pointBackgroundColor: '#22c55e',
+      pointRadius: 3,
+      yAxisID: 'y1',
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#e2e8f0', font: { size: 11 } } },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.datasetIndex === 0
+            ? `Revenue: ₴${ctx.parsed.y.toLocaleString('uk-UA')}`
+            : `Транзакції: ${ctx.parsed.y}`
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(45,55,72,0.4)' } },
+      y: {
+        ticks: { color: '#94a3b8', font: { size: 10 }, callback: v => '₴'+v.toLocaleString('uk-UA') },
+        grid: { color: 'rgba(45,55,72,0.4)' }
+      },
+      y1: {
+        position: 'right',
+        ticks: { color: '#22c55e', font: { size: 10 } },
+        grid: { drawOnChartArea: false }
+      }
+    }
+  }
 });
 </script>
 </body>
